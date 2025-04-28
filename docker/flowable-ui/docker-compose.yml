@@ -1,0 +1,26 @@
+# docker/docker-compose.yml
+version: '3.9'
+
+services:
+  flowable-ui-rest:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: flowable-app
+    networks:
+      - net-data
+    ports:
+      - "8090:8080"
+    environment:
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresdb:5432/smart-lending-platform
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=Password123
+      - FLOWABLE_DATABASE_SCHEMA_UPDATE=true
+    depends_on: []
+    restart: unless-stopped
+networks:
+  net-data:
+    name: net-data
+    external: true
+    driver: bridge
