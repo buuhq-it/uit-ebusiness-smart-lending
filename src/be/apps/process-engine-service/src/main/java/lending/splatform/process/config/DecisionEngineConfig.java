@@ -1,6 +1,11 @@
 package lending.splatform.process.config;
 
+import lombok.extern.slf4j.Slf4j;
+
+
+import org.flowable.dmn.api.DmnDecisionService;
 import org.flowable.dmn.engine.DmnEngine;
+import org.flowable.dmn.spring.DmnEngineFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -8,6 +13,7 @@ import org.flowable.dmn.spring.SpringDmnEngineConfiguration;
 
 import javax.sql.DataSource;
 
+@Slf4j
 @Configuration
 public class DecisionEngineConfig {
     @Bean
@@ -28,8 +34,11 @@ public class DecisionEngineConfig {
     }
 
     @Bean
-    public DmnRuleService dmnRuleService(DmnEngine dmnEngine) {
-        return dmnEngine.getDmnRuleService();
+    public DmnDecisionService dmnRuleService(DmnEngine dmnEngine) {
+
+        return dmnEngine.getDmnDecisionService();
     }
+
+
 
 }

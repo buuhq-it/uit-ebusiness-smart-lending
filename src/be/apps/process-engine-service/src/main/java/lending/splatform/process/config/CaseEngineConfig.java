@@ -1,5 +1,10 @@
 package lending.splatform.process.config;
 
+import lombok.extern.slf4j.Slf4j;
+import org.flowable.cmmn.api.CmmnRuntimeService;
+import org.flowable.cmmn.api.CmmnTaskService;
+import org.flowable.cmmn.engine.CmmnEngine;
+import org.flowable.cmmn.spring.CmmnEngineFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -8,6 +13,7 @@ import org.flowable.cmmn.spring.SpringCmmnEngineConfiguration;
 
 import javax.sql.DataSource;
 
+@Slf4j
 @Configuration
 public class CaseEngineConfig {
     @Bean
@@ -26,14 +32,18 @@ public class CaseEngineConfig {
         factoryBean.setCmmnEngineConfiguration(config);
         return factoryBean.getObject();
     }
-
-    @Bean
-    public CmmnRuntimeService cmmnRuntimeService(CmmnEngine cmmnEngine) {
-        return cmmnEngine.getCmmnRuntimeService();
-    }
-
     @Bean
     public CmmnTaskService cmmnTaskService(CmmnEngine cmmnEngine) {
         return cmmnEngine.getCmmnTaskService();
     }
+
+    @Bean
+    public CmmnRuntimeService cmmnRuntimeService(CmmnEngine cmmnEngine) {
+
+        //cmmnEngine.getCmmnRuntimeService();
+
+        return cmmnEngine.getCmmnRuntimeService();
+    }
+
+
 }
